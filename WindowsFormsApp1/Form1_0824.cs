@@ -11,10 +11,11 @@ using System.Threading;  // 추가1
 using System.Net; // 추가
 using System.Net.Sockets;  // 추가
 using System.IO;  // 추가
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 
 namespace My_Client
-{
+{  
     public partial class Form1 : Form
     {
         int cmd,ThreadBit = 1;  byte Count = 1;
@@ -28,13 +29,16 @@ namespace My_Client
         byte[] Tcp_rx_data = new byte[50];
         byte[] Tcp_rx_buf = new byte[50];
 
+        string[] Slave_DataSplit = new string[50];
+        string[] Slave_Mac = new string[254];
+
         NetworkStream stream;
         public Form1()
         {
             InitializeComponent();
         }
         
-        private void button1_Click(object sender, EventArgs e)  // '연결하기' 버튼이 클릭되면
+        private void button1_Click(object sender, EventArgs e)  //'연결하기' 버튼이 클릭되면
         {
             Thread thread1 = new Thread(connect);  // Thread 객채 생성, Form과는 별도 쓰레드에서 connect 함수가 실행됨.
             thread1.IsBackground = true;  // Form이 종료되면 thread1도 종료.
@@ -48,8 +52,6 @@ namespace My_Client
             DataForm.Owner = this;
             DataForm.ShowDialog();
         }
-
-        
 
         private void connect()  // thread1에 연결된 함수. 메인폼과는 별도로 동작한다.
         {
@@ -101,26 +103,36 @@ namespace My_Client
             richTextBox1.Invoke((MethodInvoker)delegate { richTextBox1.AppendText(data); }); //  데이타를 수신창에 표시, 반드시 invoke 사용. 충돌피함.
             richTextBox1.Invoke((MethodInvoker)delegate { richTextBox1.ScrollToCaret(); });  // 스크롤을 젤 밑으로.
         }
+
         public void DataWrite(byte[] a) // Data Send
         {
             stream.Write(a, 0, a.Length);
             Tcp_tx_data[2] = Count++;
         }
 
-       
-        public static void Parsing(byte[] b) // Send Data Parsing
+        private void Mac_Sendbtn_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < b.Length; i++)
+           
+
+            string line; int num = 0;
+            string[] FullData = new string[254];
+            StreamReader FS = new StreamReader(".mac.txt");
+
+            while ((line = FS.ReadLine()) != null)
             {
-                string s = b[0].ToString();
-                if (Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 57)
-                {
-                    int result = Convert.ToInt32(s) - 48;
-                    b[i] = (byte)result;    
-                }
+                FullData[num] = num + "," + line;
+                num++;
             }
-        } 
-       
+            FS.Close();
+
+            for (int i = 0; i < num; i++)
+            {
+                Slave_DataSplit = FullData[i].Split(',');
+                Slave_Mac[i] = Slave_DataSplit[3]; //각 Slave_Mac Data만 저장
+                dataGridView1.Rows.Add(Slave_DataSplit); //DataSheet에 삽입
+            }
+
+        }
 
         private void Sendbtn_Click(object sender, EventArgs e)  // '보내기' 버튼이 클릭되면
         {
@@ -129,7 +141,7 @@ namespace My_Client
 
             sendData1 = textBox3.Text; // testBox3 의 내용을 sendData1 변수에 저장
             Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
-            Parsing(Tcp_tx_buf);
+            Form_1.Parsing(Tcp_tx_buf);
 
             if (cmd == 100)
             {
@@ -146,7 +158,7 @@ namespace My_Client
             }
         }
 
-        private void Cmd1btn_Click(object sender, EventArgs e) //Cmd 1. TCP Open?
+        private void Cmd1btn_Click(object sender, EventArgs e) //Cmd 1. TCP Open?  
         {
             cmd = 1;
 
@@ -156,7 +168,6 @@ namespace My_Client
             Tcp_tx_data[3] = 10; //Cmd
             Tcp_tx_data[4] = 3; //ETX
             DataWrite(Tcp_tx_data);
-
         } 
 
         private void Cmd2btn_Click(object sender, EventArgs e) //Cmd 2. IP,Port Setting
@@ -211,6 +222,7 @@ namespace My_Client
                 }
             });
         }
+
         private void cmd10Stopbtn_Click(object sender, EventArgs e) //Cmd 10. Get Joystick Value Stop
         {
             ThreadBit = 0;
@@ -232,20 +244,45 @@ namespace My_Client
             DataWrite(Tcp_tx_data);
 
         }
+
         private void Savebtn_Click(object sender, EventArgs e) //Data Save
         {
+
 
             BT_Slave_Data= HName + "," + IP + "," + Port + "," + Mac;
             StreamWriter FS = new StreamWriter(".mac.txt", true); 
             FS.WriteLine(BT_Slave_Data); 
             FS.Close();
+            writeRichTextbox(BT_Slave_Data);
+
+
+
+        }
+
+
+    }
+    public class Form_1
+    {
+        public static void Parsing(byte[] b) // Send Data Parsing
+        {
+            for (int i = 0; i < b.Length; i++)
+            {
+                string s = b[0].ToString();
+                if (Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 57)
+                {
+                    int result = Convert.ToInt32(s) - 48;
+                    b[i] = (byte)result;
+                }
+            }
         }
     }
+
 }
 /*
  *                    ※개발※
- * 1.Mac 보낼때 형식?
- * 2.핑 날릴때 100번중에 ~~ 
+ * 1.Mac 프로토콜
+ * 1-1. 폼간 데이터 전달(Count)
+ * 2.
  * 
  * 
  *                  ※수정사항※

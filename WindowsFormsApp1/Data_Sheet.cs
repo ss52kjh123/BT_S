@@ -9,15 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace My_Client
 {
     public partial class Data_Sheet : Form
     {
 
-        
         string NO, Name, IP, Port, Mac = String.Empty;
         string BT_Slave_Data1 = string.Empty; //Main Form에서 받아올 데이터 변수
-        string[] Slave_DataSplit;
+        string[] Slave_DataSplit = new string[50];
+        string[] Slave_Mac = new string[254];
 
 
         public Data_Sheet(string data)
@@ -41,7 +42,7 @@ namespace My_Client
 
             while((line = FS.ReadLine())!=null)
             {
-                FullData[count] = line+","+count;
+                FullData[count] = count+","+line;
                 count++;
             }
             FS.Close();
@@ -50,13 +51,16 @@ namespace My_Client
             for (int i = 0; i < count; i++)
             {
                 Slave_DataSplit = FullData[i].Split(',');
+                Slave_Mac[i] = Slave_DataSplit[3]; //각 Slave_Mac Data만 저장
                 DataGridView1.Rows.Add(Slave_DataSplit); //DataSheet에 삽입
             }
-            DataGridView1.Columns[4].DisplayIndex = 0; //NO. Columns삽입
+            
 
-
+            
         }
 
         
     }
+
+    
 }

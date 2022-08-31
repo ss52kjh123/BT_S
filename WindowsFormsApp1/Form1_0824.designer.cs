@@ -60,6 +60,16 @@ namespace My_Client
             this.Cmd3btn = new System.Windows.Forms.Button();
             this.Cmd100btn = new System.Windows.Forms.Button();
             this.Cmd2btn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Mac_Sendbtn = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DataNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -253,9 +263,10 @@ namespace My_Client
             // 
             // Savebtn
             // 
-            this.Savebtn.Location = new System.Drawing.Point(738, 277);
+            this.Savebtn.Font = new System.Drawing.Font("굴림", 8F);
+            this.Savebtn.Location = new System.Drawing.Point(738, 287);
             this.Savebtn.Name = "Savebtn";
-            this.Savebtn.Size = new System.Drawing.Size(87, 28);
+            this.Savebtn.Size = new System.Drawing.Size(75, 23);
             this.Savebtn.TabIndex = 14;
             this.Savebtn.Text = "Save";
             this.Savebtn.UseVisualStyleBackColor = true;
@@ -340,11 +351,98 @@ namespace My_Client
             this.Cmd2btn.UseVisualStyleBackColor = true;
             this.Cmd2btn.Click += new System.EventHandler(this.Cmd2btn_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(620, 290);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(112, 15);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Slave Info Save";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(600, 263);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(132, 15);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Send Mac Address";
+            // 
+            // Mac_Sendbtn
+            // 
+            this.Mac_Sendbtn.Font = new System.Drawing.Font("굴림", 8F);
+            this.Mac_Sendbtn.Location = new System.Drawing.Point(738, 259);
+            this.Mac_Sendbtn.Name = "Mac_Sendbtn";
+            this.Mac_Sendbtn.Size = new System.Drawing.Size(75, 23);
+            this.Mac_Sendbtn.TabIndex = 22;
+            this.Mac_Sendbtn.Text = "Send";
+            this.Mac_Sendbtn.UseVisualStyleBackColor = true;
+            this.Mac_Sendbtn.Click += new System.EventHandler(this.Mac_Sendbtn_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DataNo,
+            this.DataName,
+            this.DataIP,
+            this.DataPort,
+            this.DataMac});
+            this.dataGridView1.Location = new System.Drawing.Point(14, 367);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 27;
+            this.dataGridView1.Size = new System.Drawing.Size(480, 150);
+            this.dataGridView1.TabIndex = 23;
+            // 
+            // DataNo
+            // 
+            this.DataNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DataNo.HeaderText = "No.";
+            this.DataNo.MinimumWidth = 6;
+            this.DataNo.Name = "DataNo";
+            this.DataNo.Width = 59;
+            // 
+            // DataName
+            // 
+            this.DataName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DataName.HeaderText = "Name";
+            this.DataName.MinimumWidth = 6;
+            this.DataName.Name = "DataName";
+            this.DataName.Width = 72;
+            // 
+            // DataIP
+            // 
+            this.DataIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DataIP.HeaderText = "IP Address";
+            this.DataIP.MinimumWidth = 6;
+            this.DataIP.Name = "DataIP";
+            this.DataIP.Width = 107;
+            // 
+            // DataPort
+            // 
+            this.DataPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DataPort.HeaderText = "Port";
+            this.DataPort.MinimumWidth = 6;
+            this.DataPort.Name = "DataPort";
+            this.DataPort.Width = 63;
+            // 
+            // DataMac
+            // 
+            this.DataMac.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.DataMac.HeaderText = "Mac Address";
+            this.DataMac.MinimumWidth = 6;
+            this.DataMac.Name = "DataMac";
+            this.DataMac.Width = 112;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 320);
+            this.ClientSize = new System.Drawing.Size(837, 597);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.Mac_Sendbtn);
             this.Controls.Add(this.Cmd2btn);
             this.Controls.Add(this.Cmd100btn);
             this.Controls.Add(this.Cmd3btn);
@@ -358,6 +456,8 @@ namespace My_Client
             this.Controls.Add(this.IP3TB);
             this.Controls.Add(this.IP2TB);
             this.Controls.Add(this.IP1TB);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label7);
@@ -379,6 +479,7 @@ namespace My_Client
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "클라이언트 Form";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -417,6 +518,15 @@ namespace My_Client
         private System.Windows.Forms.Button Cmd3btn;
         private System.Windows.Forms.Button Cmd100btn;
         private System.Windows.Forms.Button Cmd2btn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button Mac_Sendbtn;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataIP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataPort;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataMac;
     }
 }
 

@@ -30,12 +30,12 @@
         {
             this.PREVbtn = new System.Windows.Forms.Button();
             this.DataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Loadbtn = new System.Windows.Forms.Button();
+            this.DataNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Loadbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,17 +54,34 @@
             this.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DataNo,
             this.DataName,
             this.DataIP,
             this.DataPort,
-            this.DataMac,
-            this.DataNo});
+            this.DataMac});
             this.DataGridView1.Location = new System.Drawing.Point(44, 84);
             this.DataGridView1.Name = "DataGridView1";
             this.DataGridView1.RowHeadersWidth = 51;
             this.DataGridView1.RowTemplate.Height = 27;
             this.DataGridView1.Size = new System.Drawing.Size(474, 325);
             this.DataGridView1.TabIndex = 1;
+            // 
+            // Loadbtn
+            // 
+            this.Loadbtn.Location = new System.Drawing.Point(313, 24);
+            this.Loadbtn.Name = "Loadbtn";
+            this.Loadbtn.Size = new System.Drawing.Size(100, 35);
+            this.Loadbtn.TabIndex = 2;
+            this.Loadbtn.Text = "Load";
+            this.Loadbtn.UseVisualStyleBackColor = true;
+            this.Loadbtn.Click += new System.EventHandler(this.Loadbtn_Click);
+            // 
+            // DataNo
+            // 
+            this.DataNo.HeaderText = "No.";
+            this.DataNo.MinimumWidth = 6;
+            this.DataNo.Name = "DataNo";
+            this.DataNo.Width = 59;
             // 
             // DataName
             // 
@@ -78,7 +95,7 @@
             this.DataIP.HeaderText = "IP Address";
             this.DataIP.MinimumWidth = 6;
             this.DataIP.Name = "DataIP";
-            this.DataIP.Width = 99;
+            this.DataIP.Width = 107;
             // 
             // DataPort
             // 
@@ -93,23 +110,6 @@
             this.DataMac.MinimumWidth = 6;
             this.DataMac.Name = "DataMac";
             this.DataMac.Width = 112;
-            // 
-            // DataNo
-            // 
-            this.DataNo.HeaderText = "No.";
-            this.DataNo.MinimumWidth = 6;
-            this.DataNo.Name = "DataNo";
-            this.DataNo.Width = 59;
-            // 
-            // Loadbtn
-            // 
-            this.Loadbtn.Location = new System.Drawing.Point(313, 24);
-            this.Loadbtn.Name = "Loadbtn";
-            this.Loadbtn.Size = new System.Drawing.Size(100, 35);
-            this.Loadbtn.TabIndex = 2;
-            this.Loadbtn.Text = "Load";
-            this.Loadbtn.UseVisualStyleBackColor = true;
-            this.Loadbtn.Click += new System.EventHandler(this.Loadbtn_Click);
             // 
             // Data_Sheet
             // 
@@ -131,10 +131,10 @@
         private System.Windows.Forms.Button PREVbtn;
         private System.Windows.Forms.DataGridView DataGridView1;
         private System.Windows.Forms.Button Loadbtn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataIP;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataPort;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataMac;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataNo;
     }
 }
