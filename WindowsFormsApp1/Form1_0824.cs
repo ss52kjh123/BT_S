@@ -130,16 +130,13 @@ namespace My_Client
             richTextBox1.Invoke((MethodInvoker)delegate { richTextBox1.AppendText(data); }); //  데이타를 수신창에 표시, 반드시 invoke 사용. 충돌피함.
             richTextBox1.Invoke((MethodInvoker)delegate { richTextBox1.ScrollToCaret(); });  // 스크롤을 젤 밑으로.
         }
-        public void DataWrite(byte[] a) // 데이터 전송  함수
+        public void DataWrite(byte[] a) // 데이터 전송 함수
         {
             stream.Write(a, 0, a.Length);
             Tcp_tx_data[2] = Count++;
         }
 
-        private void Cmdbutton_Click(object sender, EventArgs e)
-        {
-            cmd = Convert.ToInt32(CmdTextBox.Text);
-        }
+       
         public static void Parsing(byte[] b)
         {
             for (int i = 0; i < b.Length; i++)

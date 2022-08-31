@@ -37,10 +37,7 @@ namespace My_Client
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sendbtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.CmdTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.Cmdbutton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -134,22 +131,6 @@ namespace My_Client
             this.Sendbtn.UseVisualStyleBackColor = true;
             this.Sendbtn.Click += new System.EventHandler(this.Sendbtn_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(389, 283);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Comand";
-            // 
-            // CmdTextBox
-            // 
-            this.CmdTextBox.Location = new System.Drawing.Point(456, 276);
-            this.CmdTextBox.Name = "CmdTextBox";
-            this.CmdTextBox.Size = new System.Drawing.Size(86, 25);
-            this.CmdTextBox.TabIndex = 10;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -158,16 +139,6 @@ namespace My_Client
             this.label4.Size = new System.Drawing.Size(12, 15);
             this.label4.TabIndex = 11;
             this.label4.Text = ".";
-            // 
-            // Cmdbutton
-            // 
-            this.Cmdbutton.Location = new System.Drawing.Point(548, 274);
-            this.Cmdbutton.Name = "Cmdbutton";
-            this.Cmdbutton.Size = new System.Drawing.Size(86, 31);
-            this.Cmdbutton.TabIndex = 12;
-            this.Cmdbutton.Text = "Set";
-            this.Cmdbutton.UseVisualStyleBackColor = true;
-            this.Cmdbutton.Click += new System.EventHandler(this.Cmdbutton_Click);
             // 
             // label5
             // 
@@ -278,7 +249,7 @@ namespace My_Client
             // 
             // Savebtn
             // 
-            this.Savebtn.Location = new System.Drawing.Point(681, 276);
+            this.Savebtn.Location = new System.Drawing.Point(738, 277);
             this.Savebtn.Name = "Savebtn";
             this.Savebtn.Size = new System.Drawing.Size(87, 28);
             this.Savebtn.TabIndex = 14;
@@ -288,7 +259,7 @@ namespace My_Client
             // 
             // Data_Sheetbtn
             // 
-            this.Data_Sheetbtn.Location = new System.Drawing.Point(700, 16);
+            this.Data_Sheetbtn.Location = new System.Drawing.Point(740, 12);
             this.Data_Sheetbtn.Name = "Data_Sheetbtn";
             this.Data_Sheetbtn.Size = new System.Drawing.Size(85, 30);
             this.Data_Sheetbtn.TabIndex = 15;
@@ -329,7 +300,7 @@ namespace My_Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 320);
+            this.ClientSize = new System.Drawing.Size(837, 320);
             this.Controls.Add(this.cmd10Stopbtn);
             this.Controls.Add(this.cmd10Startbtn);
             this.Controls.Add(this.Data_Sheetbtn);
@@ -339,7 +310,6 @@ namespace My_Client
             this.Controls.Add(this.IP3TB);
             this.Controls.Add(this.IP2TB);
             this.Controls.Add(this.IP1TB);
-            this.Controls.Add(this.Cmdbutton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label7);
@@ -350,8 +320,6 @@ namespace My_Client
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.CmdTextBox);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.Sendbtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
@@ -378,10 +346,7 @@ namespace My_Client
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Sendbtn;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox CmdTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button Cmdbutton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;

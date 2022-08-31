@@ -16,7 +16,7 @@ namespace My_Client
 
         
         string NO, Name, IP, Port, Mac = String.Empty;
-        string BT_Slave_Data1 = string.Empty; //Main Form에서 받아올 데이터  변수
+        string BT_Slave_Data1 = string.Empty; //Main Form에서 받아올 데이터 변수
         string[] Slave_DataSplit;
         public Data_Sheet(string data)
         {
