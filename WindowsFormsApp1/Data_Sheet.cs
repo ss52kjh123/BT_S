@@ -18,6 +18,8 @@ namespace My_Client
         string NO, Name, IP, Port, Mac = String.Empty;
         string BT_Slave_Data1 = string.Empty; //Main Form에서 받아올 데이터 변수
         string[] Slave_DataSplit;
+
+
         public Data_Sheet(string data)
         {
             InitializeComponent();
@@ -52,34 +54,6 @@ namespace My_Client
             }
             DataGridView1.Columns[4].DisplayIndex = 0; //NO. Columns삽입
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //string[] Slave_DataSplit  = BT_Slave_Data1.Split(',');
-
-            //Name = Slave_DataSplit[0];
-            //IP= Slave_DataSplit[1];
-            //Port = Slave_DataSplit[2];
-            //Mac = Slave_DataSplit[3];
-            //DataGridView1.Rows.Add(1,Slave_DataSplit,1);
-
-
-
-            //DataGridView1["DataName", 0].Value = Slave_DataSplit[0];
-            //DataGridView1["DataIP", 0].Value = Slave_DataSplit[1];
-            //DataGridView1["DataPort", 0].Value = Slave_DataSplit[2];
-            //DataGridView1["DataMac", 0].Value = Slave_DataSplit[3];
 
         }
 

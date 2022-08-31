@@ -49,36 +49,7 @@ namespace My_Client
             DataForm.ShowDialog();
         }
 
-   
-        private void cmd10Startbtn_Click(object sender, EventArgs e) //Get Joystick Value
-        {
-            ThreadBit = 1;
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = 5; //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 10; //Cmd
-            Tcp_tx_data[4] = 3; //ETX
-            DataWrite(Tcp_tx_data);
-
-            ThreadPool.QueueUserWorkItem((_) => {
-                while (ThreadBit == 1)
-                {
-                    while(Tcp_rx_buf[2] == Count-1) //응답받고 보냄
-                    {
-                        DataWrite(Tcp_tx_data);
-                        Thread.Sleep(1000); 
-                    }
-                    
-                }
-            });
-        }
-
-       
-        private void cmd10Stopbtn_Click(object sender, EventArgs e)
-        {
-            ThreadBit = 0;
-            cmd = 1;
-        }
+        
 
         private void connect()  // thread1에 연결된 함수. 메인폼과는 별도로 동작한다.
         {
@@ -130,14 +101,14 @@ namespace My_Client
             richTextBox1.Invoke((MethodInvoker)delegate { richTextBox1.AppendText(data); }); //  데이타를 수신창에 표시, 반드시 invoke 사용. 충돌피함.
             richTextBox1.Invoke((MethodInvoker)delegate { richTextBox1.ScrollToCaret(); });  // 스크롤을 젤 밑으로.
         }
-        public void DataWrite(byte[] a) // 데이터 전송 함수
+        public void DataWrite(byte[] a) // Data Send
         {
             stream.Write(a, 0, a.Length);
             Tcp_tx_data[2] = Count++;
         }
 
        
-        public static void Parsing(byte[] b)
+        public static void Parsing(byte[] b) // Send Data Parsing
         {
             for (int i = 0; i < b.Length; i++)
             {
@@ -148,7 +119,7 @@ namespace My_Client
                     b[i] = (byte)result;    
                 }
             }
-        }
+        } 
        
 
         private void Sendbtn_Click(object sender, EventArgs e)  // '보내기' 버튼이 클릭되면
@@ -160,63 +131,107 @@ namespace My_Client
             Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
             Parsing(Tcp_tx_buf);
 
-            
-            //cmd Seqence    
-            switch (cmd)
+            if (cmd == 100)
             {
-
-                case 1: //Tcp Open?
-                    Tcp_tx_data[0] = 2; //STX
-                    Tcp_tx_data[1] = 5; //Data Length
-                    Tcp_tx_data[2] = Count; //Count
-                    Tcp_tx_data[3] = 10; //Cmd
-                    Tcp_tx_data[4] = 3; //ETX
-                    DataWrite(Tcp_tx_data);
-                    break;
-
-                case 2://IP,Port setting
-                    Tcp_tx_data[0] = 2; //STX
-                    Tcp_tx_data[1] = 15; //Data Length
-                    Tcp_tx_data[2] = Count; //Count
-                    Tcp_tx_data[3] = 2; //Cmd
-                    Tcp_tx_data[4] = (byte)Convert.ToInt16(IP1TB.Text); //IP1
-                    Tcp_tx_data[6] = (byte)Convert.ToInt16(IP2TB.Text); //IP2
-                    Tcp_tx_data[8] = (byte)Convert.ToInt16(IP3TB.Text); //IP3
-                    Tcp_tx_data[10] = (byte)Convert.ToInt16(IP4TB.Text);//IP4
-                    Tcp_tx_data[12] = (byte)Convert.ToInt16(PortTB.Text); // Port=(Tcp_tx_buf[13] << 8) + Tcp_tx_buf[12]
-                    Tcp_tx_data[13] = (byte)(Convert.ToInt16(PortTB.Text)>>8);
-                    Tcp_tx_data[14] = 3; //ETX
-                    DataWrite(Tcp_tx_data);
-                    break;
-
-                case 3://Serial Number Request
-                    Tcp_tx_data[0] = 2; //STX
-                    Tcp_tx_data[1] = 5; //Data Length
-                    Tcp_tx_data[2] = Count; //Count
-                    Tcp_tx_data[3] = 3; //Cmd
-                    Tcp_tx_data[4] = 3; //ETX
-                    DataWrite(Tcp_tx_data);
-                    break;
-
-
-                
-
-                case 100: //AT Setting Mode
-
-                    Tcp_tx_data[0] = 2; //STX
-                    Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
-                    Tcp_tx_data[2] = Count; //Count
-                    Tcp_tx_data[3] = 100; //Cmd
-                    for (int i = 0; i < Tcp_tx_buf.Length; i++)
-                        Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
-                    Tcp_tx_data[Tcp_tx_buf.Length + 4] = 13; //\r
-                    Tcp_tx_data[Tcp_tx_buf.Length + 5] = 10; //\n
-                    Tcp_tx_data[Tcp_tx_buf.Length + 6] = 3; //ETX
-                    DataWrite(Tcp_tx_data);
-                    break;
+                Tcp_tx_data[0] = 2; //STX
+                Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
+                Tcp_tx_data[2] = Count; //Count
+                Tcp_tx_data[3] = 100; //Cmd
+                for (int i = 0; i < Tcp_tx_buf.Length; i++)
+                    Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
+                Tcp_tx_data[Tcp_tx_buf.Length + 4] = 13; //\r
+                Tcp_tx_data[Tcp_tx_buf.Length + 5] = 10; //\n
+                Tcp_tx_data[Tcp_tx_buf.Length + 6] = 3; //ETX
+                DataWrite(Tcp_tx_data);
             }
         }
 
+        private void Cmd1btn_Click(object sender, EventArgs e) //Cmd 1. TCP Open?
+        {
+            cmd = 1;
+
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = 5; //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 10; //Cmd
+            Tcp_tx_data[4] = 3; //ETX
+            DataWrite(Tcp_tx_data);
+
+        } 
+
+        private void Cmd2btn_Click(object sender, EventArgs e) //Cmd 2. IP,Port Setting
+        {
+            cmd = 2;
+
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = 15; //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 2; //Cmd
+            Tcp_tx_data[4] = (byte)Convert.ToInt16(IP1TB.Text); //IP1
+            Tcp_tx_data[6] = (byte)Convert.ToInt16(IP2TB.Text); //IP2
+            Tcp_tx_data[8] = (byte)Convert.ToInt16(IP3TB.Text); //IP3
+            Tcp_tx_data[10] = (byte)Convert.ToInt16(IP4TB.Text);//IP4
+            Tcp_tx_data[12] = (byte)Convert.ToInt16(PortTB.Text); // Port=(Tcp_tx_buf[13] << 8) + Tcp_tx_buf[12]
+            Tcp_tx_data[13] = (byte)(Convert.ToInt16(PortTB.Text) >> 8);
+            Tcp_tx_data[14] = 3; //ETX
+            DataWrite(Tcp_tx_data);
+        }
+
+        private void Cmd3btn_Click(object sender, EventArgs e) //Cmd 3. Serial Number Request
+        {
+            cmd = 3;
+
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = 5; //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 3; //Cmd
+            Tcp_tx_data[4] = 3; //ETX
+            DataWrite(Tcp_tx_data);
+        }
+
+        private void cmd10Startbtn_Click(object sender, EventArgs e) //Cmd 10. Get Joystick Value Start
+        {
+            ThreadBit = 1;
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = 5; //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 10; //Cmd
+            Tcp_tx_data[4] = 3; //ETX
+            DataWrite(Tcp_tx_data);
+
+            ThreadPool.QueueUserWorkItem((_) => {
+                while (ThreadBit == 1)
+                {
+                    while (Tcp_rx_buf[2] == Count - 1) //응답받고 보냄
+                    {
+                        DataWrite(Tcp_tx_data);
+                        Thread.Sleep(1000);
+                    }
+
+                }
+            });
+        }
+        private void cmd10Stopbtn_Click(object sender, EventArgs e) //Cmd 10. Get Joystick Value Stop
+        {
+            ThreadBit = 0;
+            cmd = 1;
+        }
+
+        private void Cmd100btn_Click(object sender, EventArgs e)//Cmd 100. AT Setting Mode
+        {
+            cmd = 100;
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = 9; //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 100; //Cmd
+            Tcp_tx_data[4] = 65; //'A'
+            Tcp_tx_data[5] = 84; //'T'
+            Tcp_tx_data[6] = 13; //'\r'
+            Tcp_tx_data[7] = 10; //'\n'
+            Tcp_tx_data[8] = 3; //ETX
+            DataWrite(Tcp_tx_data);
+
+        }
         private void Savebtn_Click(object sender, EventArgs e) //Data Save
         {
 

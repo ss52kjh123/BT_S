@@ -56,6 +56,10 @@ namespace My_Client
             this.label13 = new System.Windows.Forms.Label();
             this.cmd10Startbtn = new System.Windows.Forms.Button();
             this.cmd10Stopbtn = new System.Windows.Forms.Button();
+            this.Cmd1btn = new System.Windows.Forms.Button();
+            this.Cmd3btn = new System.Windows.Forms.Button();
+            this.Cmd100btn = new System.Windows.Forms.Button();
+            this.Cmd2btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -296,11 +300,55 @@ namespace My_Client
             this.cmd10Stopbtn.UseVisualStyleBackColor = true;
             this.cmd10Stopbtn.Click += new System.EventHandler(this.cmd10Stopbtn_Click);
             // 
+            // Cmd1btn
+            // 
+            this.Cmd1btn.Location = new System.Drawing.Point(431, 94);
+            this.Cmd1btn.Name = "Cmd1btn";
+            this.Cmd1btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd1btn.TabIndex = 18;
+            this.Cmd1btn.Text = "Send";
+            this.Cmd1btn.UseVisualStyleBackColor = true;
+            this.Cmd1btn.Click += new System.EventHandler(this.Cmd1btn_Click);
+            // 
+            // Cmd3btn
+            // 
+            this.Cmd3btn.Location = new System.Drawing.Point(488, 160);
+            this.Cmd3btn.Name = "Cmd3btn";
+            this.Cmd3btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd3btn.TabIndex = 19;
+            this.Cmd3btn.Text = "Send";
+            this.Cmd3btn.UseVisualStyleBackColor = true;
+            this.Cmd3btn.Click += new System.EventHandler(this.Cmd3btn_Click);
+            // 
+            // Cmd100btn
+            // 
+            this.Cmd100btn.Location = new System.Drawing.Point(488, 225);
+            this.Cmd100btn.Name = "Cmd100btn";
+            this.Cmd100btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd100btn.TabIndex = 20;
+            this.Cmd100btn.Text = "Set";
+            this.Cmd100btn.UseVisualStyleBackColor = true;
+            this.Cmd100btn.Click += new System.EventHandler(this.Cmd100btn_Click);
+            // 
+            // Cmd2btn
+            // 
+            this.Cmd2btn.Location = new System.Drawing.Point(728, 127);
+            this.Cmd2btn.Name = "Cmd2btn";
+            this.Cmd2btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd2btn.TabIndex = 21;
+            this.Cmd2btn.Text = "Set";
+            this.Cmd2btn.UseVisualStyleBackColor = true;
+            this.Cmd2btn.Click += new System.EventHandler(this.Cmd2btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 320);
+            this.Controls.Add(this.Cmd2btn);
+            this.Controls.Add(this.Cmd100btn);
+            this.Controls.Add(this.Cmd3btn);
+            this.Controls.Add(this.Cmd1btn);
             this.Controls.Add(this.cmd10Stopbtn);
             this.Controls.Add(this.cmd10Startbtn);
             this.Controls.Add(this.Data_Sheetbtn);
@@ -365,6 +413,10 @@ namespace My_Client
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button cmd10Startbtn;
         private System.Windows.Forms.Button cmd10Stopbtn;
+        private System.Windows.Forms.Button Cmd1btn;
+        private System.Windows.Forms.Button Cmd3btn;
+        private System.Windows.Forms.Button Cmd100btn;
+        private System.Windows.Forms.Button Cmd2btn;
     }
 }
 
