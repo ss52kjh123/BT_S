@@ -15,13 +15,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 
 namespace My_Client
-{  
+{
     public partial class Form1 : Form
     {
-        int cmd,ThreadBit = 1;  byte Count = 1;
-        string IP1, IP2, IP3, IP4, IP, Port,HName,Mac;
-        static string BT_Slave_Data= string.Empty;
-       
+        int cmd, ThreadBit = 1; byte Count = 1;
+        string IP1, IP2, IP3, IP4, IP, Port, HName, Mac;
+        static string BT_Slave_Data = string.Empty;
+
         byte[] Tcp_tx_data = new byte[50];
         byte[] Tcp_tx_buf = new byte[50];
         string sendData1;
@@ -31,26 +31,31 @@ namespace My_Client
 
         string[] Slave_DataSplit = new string[50];
         string[] Slave_Mac = new string[254];
+        int Slave_Mac_Length;
 
         NetworkStream stream;
         public Form1()
         {
             InitializeComponent();
         }
-        
+        public static void Parsing(byte[] b) // Send Data Parsing
+        {
+            for (int i = 0; i < b.Length; i++)
+            {
+                string s = b[i].ToString();
+                if (Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 57)
+                {
+                    int result = Convert.ToInt32(s) - 48;
+                    b[i] = (byte)result;
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)  //'연결하기' 버튼이 클릭되면
         {
             Thread thread1 = new Thread(connect);  // Thread 객채 생성, Form과는 별도 쓰레드에서 connect 함수가 실행됨.
             thread1.IsBackground = true;  // Form이 종료되면 thread1도 종료.
             thread1.Start();  // thread1 시작.
-        }
-
-        private void Data_Sheetbtn_Click(object sender, EventArgs e) //Data_Sheet Form 열기
-        {
-            Data_Sheet DataForm = new Data_Sheet(BT_Slave_Data);//Data_Sheet Form으로 데이터 보내기
-            this.Visible = false;
-            DataForm.Owner = this;
-            DataForm.ShowDialog();
         }
 
         private void connect()  // thread1에 연결된 함수. 메인폼과는 별도로 동작한다.
@@ -110,30 +115,6 @@ namespace My_Client
             Tcp_tx_data[2] = Count++;
         }
 
-        private void Mac_Sendbtn_Click(object sender, EventArgs e)
-        {
-           
-
-            string line; int num = 0;
-            string[] FullData = new string[254];
-            StreamReader FS = new StreamReader(".mac.txt");
-
-            while ((line = FS.ReadLine()) != null)
-            {
-                FullData[num] = num + "," + line;
-                num++;
-            }
-            FS.Close();
-
-            for (int i = 0; i < num; i++)
-            {
-                Slave_DataSplit = FullData[i].Split(',');
-                Slave_Mac[i] = Slave_DataSplit[3]; //각 Slave_Mac Data만 저장
-                dataGridView1.Rows.Add(Slave_DataSplit); //DataSheet에 삽입
-            }
-
-        }
-
         private void Sendbtn_Click(object sender, EventArgs e)  // '보내기' 버튼이 클릭되면
         {
 
@@ -141,7 +122,7 @@ namespace My_Client
 
             sendData1 = textBox3.Text; // testBox3 의 내용을 sendData1 변수에 저장
             Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
-            Form_1.Parsing(Tcp_tx_buf);
+           Parsing(Tcp_tx_buf);
 
             if (cmd == 100)
             {
@@ -165,7 +146,7 @@ namespace My_Client
             Tcp_tx_data[0] = 2; //STX
             Tcp_tx_data[1] = 5; //Data Length
             Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 10; //Cmd
+            Tcp_tx_data[3] = 1; //Cmd
             Tcp_tx_data[4] = 3; //ETX
             DataWrite(Tcp_tx_data);
         } 
@@ -202,6 +183,7 @@ namespace My_Client
 
         private void cmd10Startbtn_Click(object sender, EventArgs e) //Cmd 10. Get Joystick Value Start
         {
+            cmd = 10;
             ThreadBit = 1;
             Tcp_tx_data[0] = 2; //STX
             Tcp_tx_data[1] = 5; //Data Length
@@ -245,6 +227,7 @@ namespace My_Client
 
         }
 
+        
         private void Savebtn_Click(object sender, EventArgs e) //Data Save
         {
 
@@ -259,30 +242,66 @@ namespace My_Client
 
         }
 
+        private void Loadbtn_Click(object sender, EventArgs e)
+        {
+            string line; int num = 0;
+            string[] FullData = new string[254];
+            StreamReader FS = new StreamReader(".mac.txt");
+
+            while ((line = FS.ReadLine()) != null)
+            {
+                FullData[num] = num + "," + line;
+                num++;
+            }
+            FS.Close();
+
+            for (int i = 0; i < num; i++)
+            {
+                Slave_DataSplit = FullData[i].Split(',');
+                Slave_Mac[i] = Slave_DataSplit[4]; //각 Slave_Mac Data만 저장
+                dataGridView1.Rows.Add(Slave_DataSplit); //DataSheet에 삽입
+            }
+            Slave_Mac_Length = num;
+        }
+
+        private void Mac_Sendbtn_Click(object sender, EventArgs e)
+        {
+            
+            cmd = 100;
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = (byte)Convert.ToInt16((Slave_Mac_Length * 12) + 5); //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 100; //Cmd
+
+            for (int i = 0; i < Slave_Mac_Length; i++)
+            {
+                Slave_Mac[i] = Slave_Mac[i].Replace(":", "");
+                Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(Slave_Mac[i]);
+                Parsing(Tcp_tx_buf);
+
+                for (int j = 0; j < Tcp_tx_buf.Length; j++)
+                    Tcp_tx_data[j + 4 + (i * 12)] = Tcp_tx_buf[j];
+            }
+            Tcp_tx_data[(byte)(Tcp_tx_data[1] - 1)] = 3; //ETX
+            DataWrite(Tcp_tx_data);
+
+
+
+        }
+
 
     }
-    public class Form_1
-    {
-        public static void Parsing(byte[] b) // Send Data Parsing
-        {
-            for (int i = 0; i < b.Length; i++)
-            {
-                string s = b[0].ToString();
-                if (Convert.ToInt32(s) >= 48 && Convert.ToInt32(s) <= 57)
-                {
-                    int result = Convert.ToInt32(s) - 48;
-                    b[i] = (byte)result;
-                }
-            }
-        }
-    }
+  
 
 }
 /*
  *                    ※개발※
  * 1.Mac 프로토콜
  * 1-1. 폼간 데이터 전달(Count)
- * 2.
+ * 2.세이브창 따로빼서 저장누르면 콜백으로 그리드 뷰에 데이터 바로업데이트 
+ * 2-2.세이브창에서 데이터쓸때 제한검사
+ * 3. 데이터 고유 id부여, 중간수정 가능?
+ * 
  * 
  * 
  *                  ※수정사항※

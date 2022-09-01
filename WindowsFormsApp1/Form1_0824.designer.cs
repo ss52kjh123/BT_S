@@ -52,7 +52,6 @@ namespace My_Client
             this.label12 = new System.Windows.Forms.Label();
             this.PortTB = new System.Windows.Forms.TextBox();
             this.Savebtn = new System.Windows.Forms.Button();
-            this.Data_Sheetbtn = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.cmd10Startbtn = new System.Windows.Forms.Button();
             this.cmd10Stopbtn = new System.Windows.Forms.Button();
@@ -69,6 +68,7 @@ namespace My_Client
             this.DataIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Loadbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -272,16 +272,6 @@ namespace My_Client
             this.Savebtn.UseVisualStyleBackColor = true;
             this.Savebtn.Click += new System.EventHandler(this.Savebtn_Click);
             // 
-            // Data_Sheetbtn
-            // 
-            this.Data_Sheetbtn.Location = new System.Drawing.Point(740, 12);
-            this.Data_Sheetbtn.Name = "Data_Sheetbtn";
-            this.Data_Sheetbtn.Size = new System.Drawing.Size(85, 30);
-            this.Data_Sheetbtn.TabIndex = 15;
-            this.Data_Sheetbtn.Text = "Next>>";
-            this.Data_Sheetbtn.UseVisualStyleBackColor = true;
-            this.Data_Sheetbtn.Click += new System.EventHandler(this.Data_Sheetbtn_Click);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -363,7 +353,7 @@ namespace My_Client
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(600, 263);
+            this.label14.Location = new System.Drawing.Point(600, 497);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(132, 15);
             this.label14.TabIndex = 11;
@@ -372,7 +362,7 @@ namespace My_Client
             // Mac_Sendbtn
             // 
             this.Mac_Sendbtn.Font = new System.Drawing.Font("굴림", 8F);
-            this.Mac_Sendbtn.Location = new System.Drawing.Point(738, 259);
+            this.Mac_Sendbtn.Location = new System.Drawing.Point(518, 494);
             this.Mac_Sendbtn.Name = "Mac_Sendbtn";
             this.Mac_Sendbtn.Size = new System.Drawing.Size(75, 23);
             this.Mac_Sendbtn.TabIndex = 22;
@@ -418,7 +408,7 @@ namespace My_Client
             this.DataIP.HeaderText = "IP Address";
             this.DataIP.MinimumWidth = 6;
             this.DataIP.Name = "DataIP";
-            this.DataIP.Width = 107;
+            this.DataIP.Width = 99;
             // 
             // DataPort
             // 
@@ -436,11 +426,22 @@ namespace My_Client
             this.DataMac.Name = "DataMac";
             this.DataMac.Width = 112;
             // 
+            // Loadbtn
+            // 
+            this.Loadbtn.Location = new System.Drawing.Point(518, 465);
+            this.Loadbtn.Name = "Loadbtn";
+            this.Loadbtn.Size = new System.Drawing.Size(75, 23);
+            this.Loadbtn.TabIndex = 24;
+            this.Loadbtn.Text = "Load";
+            this.Loadbtn.UseVisualStyleBackColor = true;
+            this.Loadbtn.Click += new System.EventHandler(this.Loadbtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 597);
+            this.Controls.Add(this.Loadbtn);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Mac_Sendbtn);
             this.Controls.Add(this.Cmd2btn);
@@ -449,7 +450,6 @@ namespace My_Client
             this.Controls.Add(this.Cmd1btn);
             this.Controls.Add(this.cmd10Stopbtn);
             this.Controls.Add(this.cmd10Startbtn);
-            this.Controls.Add(this.Data_Sheetbtn);
             this.Controls.Add(this.Savebtn);
             this.Controls.Add(this.PortTB);
             this.Controls.Add(this.IP4TB);
@@ -510,7 +510,6 @@ namespace My_Client
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox PortTB;
         private System.Windows.Forms.Button Savebtn;
-        private System.Windows.Forms.Button Data_Sheetbtn;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button cmd10Startbtn;
         private System.Windows.Forms.Button cmd10Stopbtn;
@@ -527,6 +526,7 @@ namespace My_Client
         private System.Windows.Forms.DataGridViewTextBoxColumn DataIP;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataPort;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataMac;
+        private System.Windows.Forms.Button Loadbtn;
     }
 }
 
