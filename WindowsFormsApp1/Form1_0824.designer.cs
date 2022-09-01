@@ -37,29 +37,16 @@ namespace My_Client
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sendbtn = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.IP1TB = new System.Windows.Forms.TextBox();
-            this.IP2TB = new System.Windows.Forms.TextBox();
-            this.IP3TB = new System.Windows.Forms.TextBox();
-            this.IP4TB = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.PortTB = new System.Windows.Forms.TextBox();
-            this.Savebtn = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.cmd10Startbtn = new System.Windows.Forms.Button();
             this.cmd10Stopbtn = new System.Windows.Forms.Button();
             this.Cmd1btn = new System.Windows.Forms.Button();
             this.Cmd3btn = new System.Windows.Forms.Button();
             this.Cmd100btn = new System.Windows.Forms.Button();
-            this.Cmd2btn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.Mac_Sendbtn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -69,6 +56,8 @@ namespace My_Client
             this.DataPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Loadbtn = new System.Windows.Forms.Button();
+            this.Slave_Add_btn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,50 +134,32 @@ namespace My_Client
             this.Sendbtn.UseVisualStyleBackColor = true;
             this.Sendbtn.Click += new System.EventHandler(this.Sendbtn_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(534, 137);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 15);
-            this.label4.TabIndex = 11;
-            this.label4.Text = ".";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(307, 98);
+            this.label5.Location = new System.Drawing.Point(307, 102);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 15);
+            this.label5.Size = new System.Drawing.Size(161, 15);
             this.label5.TabIndex = 11;
-            this.label5.Text = "1-TCP Open?";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(307, 130);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(116, 15);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "2-IP,Port setting";
+            this.label5.Text = "TCP Connection Check";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(307, 164);
+            this.label7.Location = new System.Drawing.Point(307, 150);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(171, 15);
+            this.label7.Size = new System.Drawing.Size(155, 15);
             this.label7.TabIndex = 11;
-            this.label7.Text = "3-Serial Number Request";
+            this.label7.Text = "Serial Number Request";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(307, 229);
+            this.label8.Location = new System.Drawing.Point(307, 246);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(148, 15);
+            this.label8.Size = new System.Drawing.Size(116, 15);
             this.label8.TabIndex = 11;
-            this.label8.Text = "100-AT Setting Mode";
+            this.label8.Text = "AT Setting Mode";
             // 
             // label9
             // 
@@ -199,93 +170,20 @@ namespace My_Client
             this.label9.TabIndex = 11;
             this.label9.Text = "Receive Data";
             // 
-            // IP1TB
-            // 
-            this.IP1TB.Location = new System.Drawing.Point(431, 125);
-            this.IP1TB.Name = "IP1TB";
-            this.IP1TB.Size = new System.Drawing.Size(50, 25);
-            this.IP1TB.TabIndex = 13;
-            // 
-            // IP2TB
-            // 
-            this.IP2TB.Location = new System.Drawing.Point(487, 125);
-            this.IP2TB.Name = "IP2TB";
-            this.IP2TB.Size = new System.Drawing.Size(50, 25);
-            this.IP2TB.TabIndex = 13;
-            // 
-            // IP3TB
-            // 
-            this.IP3TB.Location = new System.Drawing.Point(543, 125);
-            this.IP3TB.Name = "IP3TB";
-            this.IP3TB.Size = new System.Drawing.Size(50, 25);
-            this.IP3TB.TabIndex = 13;
-            // 
-            // IP4TB
-            // 
-            this.IP4TB.Location = new System.Drawing.Point(599, 125);
-            this.IP4TB.Name = "IP4TB";
-            this.IP4TB.Size = new System.Drawing.Size(50, 25);
-            this.IP4TB.TabIndex = 13;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(478, 137);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(12, 15);
-            this.label10.TabIndex = 11;
-            this.label10.Text = ".";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(590, 137);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(12, 15);
-            this.label11.TabIndex = 11;
-            this.label11.Text = ".";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(650, 130);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(12, 15);
-            this.label12.TabIndex = 11;
-            this.label12.Text = ":";
-            // 
-            // PortTB
-            // 
-            this.PortTB.Location = new System.Drawing.Point(664, 125);
-            this.PortTB.Name = "PortTB";
-            this.PortTB.Size = new System.Drawing.Size(58, 25);
-            this.PortTB.TabIndex = 13;
-            // 
-            // Savebtn
-            // 
-            this.Savebtn.Font = new System.Drawing.Font("굴림", 8F);
-            this.Savebtn.Location = new System.Drawing.Point(738, 287);
-            this.Savebtn.Name = "Savebtn";
-            this.Savebtn.Size = new System.Drawing.Size(75, 23);
-            this.Savebtn.TabIndex = 14;
-            this.Savebtn.Text = "Save";
-            this.Savebtn.UseVisualStyleBackColor = true;
-            this.Savebtn.Click += new System.EventHandler(this.Savebtn_Click);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(307, 196);
+            this.label13.Location = new System.Drawing.Point(307, 198);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(152, 15);
+            this.label13.Size = new System.Drawing.Size(128, 15);
             this.label13.TabIndex = 11;
-            this.label13.Text = "10-Get Joystick Value";
+            this.label13.Text = "Get Joystick Value";
             // 
             // cmd10Startbtn
             // 
-            this.cmd10Startbtn.Location = new System.Drawing.Point(488, 192);
+            this.cmd10Startbtn.Location = new System.Drawing.Point(488, 184);
             this.cmd10Startbtn.Name = "cmd10Startbtn";
-            this.cmd10Startbtn.Size = new System.Drawing.Size(75, 23);
+            this.cmd10Startbtn.Size = new System.Drawing.Size(105, 42);
             this.cmd10Startbtn.TabIndex = 16;
             this.cmd10Startbtn.Text = "Start";
             this.cmd10Startbtn.UseVisualStyleBackColor = true;
@@ -293,9 +191,9 @@ namespace My_Client
             // 
             // cmd10Stopbtn
             // 
-            this.cmd10Stopbtn.Location = new System.Drawing.Point(591, 192);
+            this.cmd10Stopbtn.Location = new System.Drawing.Point(599, 184);
             this.cmd10Stopbtn.Name = "cmd10Stopbtn";
-            this.cmd10Stopbtn.Size = new System.Drawing.Size(75, 23);
+            this.cmd10Stopbtn.Size = new System.Drawing.Size(105, 42);
             this.cmd10Stopbtn.TabIndex = 17;
             this.cmd10Stopbtn.Text = "Stop";
             this.cmd10Stopbtn.UseVisualStyleBackColor = true;
@@ -303,19 +201,19 @@ namespace My_Client
             // 
             // Cmd1btn
             // 
-            this.Cmd1btn.Location = new System.Drawing.Point(431, 94);
+            this.Cmd1btn.Location = new System.Drawing.Point(488, 88);
             this.Cmd1btn.Name = "Cmd1btn";
-            this.Cmd1btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd1btn.Size = new System.Drawing.Size(105, 42);
             this.Cmd1btn.TabIndex = 18;
-            this.Cmd1btn.Text = "Send";
+            this.Cmd1btn.Text = "Check";
             this.Cmd1btn.UseVisualStyleBackColor = true;
             this.Cmd1btn.Click += new System.EventHandler(this.Cmd1btn_Click);
             // 
             // Cmd3btn
             // 
-            this.Cmd3btn.Location = new System.Drawing.Point(488, 160);
+            this.Cmd3btn.Location = new System.Drawing.Point(488, 136);
             this.Cmd3btn.Name = "Cmd3btn";
-            this.Cmd3btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd3btn.Size = new System.Drawing.Size(105, 42);
             this.Cmd3btn.TabIndex = 19;
             this.Cmd3btn.Text = "Send";
             this.Cmd3btn.UseVisualStyleBackColor = true;
@@ -323,37 +221,18 @@ namespace My_Client
             // 
             // Cmd100btn
             // 
-            this.Cmd100btn.Location = new System.Drawing.Point(488, 225);
+            this.Cmd100btn.Location = new System.Drawing.Point(488, 232);
             this.Cmd100btn.Name = "Cmd100btn";
-            this.Cmd100btn.Size = new System.Drawing.Size(75, 23);
+            this.Cmd100btn.Size = new System.Drawing.Size(105, 42);
             this.Cmd100btn.TabIndex = 20;
             this.Cmd100btn.Text = "Set";
             this.Cmd100btn.UseVisualStyleBackColor = true;
             this.Cmd100btn.Click += new System.EventHandler(this.Cmd100btn_Click);
             // 
-            // Cmd2btn
-            // 
-            this.Cmd2btn.Location = new System.Drawing.Point(728, 127);
-            this.Cmd2btn.Name = "Cmd2btn";
-            this.Cmd2btn.Size = new System.Drawing.Size(75, 23);
-            this.Cmd2btn.TabIndex = 21;
-            this.Cmd2btn.Text = "Set";
-            this.Cmd2btn.UseVisualStyleBackColor = true;
-            this.Cmd2btn.Click += new System.EventHandler(this.Cmd2btn_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(620, 290);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 15);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Slave Info Save";
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(600, 497);
+            this.label14.Location = new System.Drawing.Point(611, 488);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(132, 15);
             this.label14.TabIndex = 11;
@@ -362,9 +241,9 @@ namespace My_Client
             // Mac_Sendbtn
             // 
             this.Mac_Sendbtn.Font = new System.Drawing.Font("굴림", 8F);
-            this.Mac_Sendbtn.Location = new System.Drawing.Point(518, 494);
+            this.Mac_Sendbtn.Location = new System.Drawing.Point(500, 475);
             this.Mac_Sendbtn.Name = "Mac_Sendbtn";
-            this.Mac_Sendbtn.Size = new System.Drawing.Size(75, 23);
+            this.Mac_Sendbtn.Size = new System.Drawing.Size(105, 42);
             this.Mac_Sendbtn.TabIndex = 22;
             this.Mac_Sendbtn.Text = "Send";
             this.Mac_Sendbtn.UseVisualStyleBackColor = true;
@@ -428,46 +307,54 @@ namespace My_Client
             // 
             // Loadbtn
             // 
-            this.Loadbtn.Location = new System.Drawing.Point(518, 465);
+            this.Loadbtn.Location = new System.Drawing.Point(500, 427);
             this.Loadbtn.Name = "Loadbtn";
-            this.Loadbtn.Size = new System.Drawing.Size(75, 23);
+            this.Loadbtn.Size = new System.Drawing.Size(105, 42);
             this.Loadbtn.TabIndex = 24;
             this.Loadbtn.Text = "Load";
             this.Loadbtn.UseVisualStyleBackColor = true;
             this.Loadbtn.Click += new System.EventHandler(this.Loadbtn_Click);
+            // 
+            // Slave_Add_btn
+            // 
+            this.Slave_Add_btn.Location = new System.Drawing.Point(691, 11);
+            this.Slave_Add_btn.Name = "Slave_Add_btn";
+            this.Slave_Add_btn.Size = new System.Drawing.Size(134, 58);
+            this.Slave_Add_btn.TabIndex = 25;
+            this.Slave_Add_btn.Text = "Add";
+            this.Slave_Add_btn.UseVisualStyleBackColor = true;
+            this.Slave_Add_btn.Click += new System.EventHandler(this.Slave_Add_btn_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(582, 33);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(103, 15);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Slave Info Add";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 597);
+            this.Controls.Add(this.Slave_Add_btn);
             this.Controls.Add(this.Loadbtn);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Mac_Sendbtn);
-            this.Controls.Add(this.Cmd2btn);
             this.Controls.Add(this.Cmd100btn);
             this.Controls.Add(this.Cmd3btn);
             this.Controls.Add(this.Cmd1btn);
             this.Controls.Add(this.cmd10Stopbtn);
             this.Controls.Add(this.cmd10Startbtn);
-            this.Controls.Add(this.Savebtn);
-            this.Controls.Add(this.PortTB);
-            this.Controls.Add(this.IP4TB);
-            this.Controls.Add(this.IP3TB);
-            this.Controls.Add(this.IP2TB);
-            this.Controls.Add(this.IP1TB);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.Sendbtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
@@ -495,29 +382,16 @@ namespace My_Client
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Sendbtn;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox IP1TB;
-        private System.Windows.Forms.TextBox IP2TB;
-        private System.Windows.Forms.TextBox IP3TB;
-        private System.Windows.Forms.TextBox IP4TB;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox PortTB;
-        private System.Windows.Forms.Button Savebtn;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button cmd10Startbtn;
         private System.Windows.Forms.Button cmd10Stopbtn;
         private System.Windows.Forms.Button Cmd1btn;
         private System.Windows.Forms.Button Cmd3btn;
         private System.Windows.Forms.Button Cmd100btn;
-        private System.Windows.Forms.Button Cmd2btn;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button Mac_Sendbtn;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -527,6 +401,8 @@ namespace My_Client
         private System.Windows.Forms.DataGridViewTextBoxColumn DataPort;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataMac;
         private System.Windows.Forms.Button Loadbtn;
+        private System.Windows.Forms.Button Slave_Add_btn;
+        private System.Windows.Forms.Label label3;
     }
 }
 

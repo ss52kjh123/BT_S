@@ -18,13 +18,14 @@ namespace My_Client
 {
     public partial class Form1 : Form
     {
+        Slave_Set_Form slave_set_form;
         int cmd, ThreadBit = 1; byte Count = 1;
-        string IP1, IP2, IP3, IP4, IP, Port, HName, Mac;
+        public string IP1, IP2, IP3, IP4, IP, Port, HName, Mac;
         static string BT_Slave_Data = string.Empty;
 
-        byte[] Tcp_tx_data = new byte[50];
-        byte[] Tcp_tx_buf = new byte[50];
-        string sendData1;
+        public byte[] Tcp_tx_data = new byte[50];
+        public byte[] Tcp_tx_buf = new byte[50];
+        public string sendData1;
 
         byte[] Tcp_rx_data = new byte[50];
         byte[] Tcp_rx_buf = new byte[50];
@@ -38,6 +39,40 @@ namespace My_Client
         {
             InitializeComponent();
         }
+        public Form1(Slave_Set_Form a)
+        {
+            InitializeComponent();
+            slave_set_form = a;
+        }
+
+
+        public void cmd100()
+        {
+            cmd = 100;
+            Tcp_tx_data[0] = 2; //STX
+            Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
+            Tcp_tx_data[2] = Count; //Count
+            Tcp_tx_data[3] = 100; //Cmd
+            for (int i = 0; i < Tcp_tx_buf.Length; i++)
+                Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
+            Tcp_tx_data[Tcp_tx_buf.Length + 4] = 13; //\r
+            Tcp_tx_data[Tcp_tx_buf.Length + 5] = 10; //\n
+            Tcp_tx_data[(byte)(Tcp_tx_data[1] - 1)] = 3; //ETX
+        }
+
+        private void Slave_Add_btn_Click(object sender, EventArgs e) // Slave Setting Form 열기
+        {
+            cmd = 100;
+            sendData1 = "AT+ADDR?";  //폼 열때 Mac Address를 Mac 변수에 저장
+            Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
+            cmd100();
+            DataWrite(Tcp_tx_data);
+            Slave_Set_Form slave_Set_Form = new Slave_Set_Form(this);
+            slave_Set_Form.ShowDialog();
+            
+
+        }
+
         public static void Parsing(byte[] b) // Send Data Parsing
         {
             for (int i = 0; i < b.Length; i++)
@@ -81,25 +116,16 @@ namespace My_Client
                     Tcp_rx_data[i] = Tcp_rx_buf[i + 4];
                 
                 writeRichTextbox(ASCIIEncoding.ASCII.GetString(Tcp_rx_data)); //RichTextBox에 Receive Data 표시
-
-                switch (cmd) //Data Parsing
+                if(cmd==100)
                 {
-                    case 2:
-                        IP1 = Convert.ToString(Tcp_rx_data[0]);
-                        IP2 = Convert.ToString(Tcp_rx_data[2]);
-                        IP3 = Convert.ToString(Tcp_rx_data[4]);
-                        IP4 = Convert.ToString(Tcp_rx_data[6]);
-                        IP = IP1 + "." + IP2 + "." + IP3 + "." + IP4;
-                        Port = Convert.ToString(Convert.ToInt16(Tcp_rx_data[8]) | Convert.ToInt16(Tcp_rx_data[9]) << 8);
-                        break;
-                    case 100:
-                        if (sendData1 == "AT+ADDR?")
-                            Mac = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, 14);
+                    if (sendData1 == "AT+ADDR?")
+                        Mac = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, 14);
 
-                        if (sendData1 == "AT+NAME?")
-                            HName= ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, rx_Length-17);
-                            break;
+                    if (sendData1 == "AT+NAME?")
+                        HName = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, rx_Length - 17);
                 }
+               
+                
             }
         }
 
@@ -117,9 +143,6 @@ namespace My_Client
 
         private void Sendbtn_Click(object sender, EventArgs e)  // '보내기' 버튼이 클릭되면
         {
-
-           
-
             sendData1 = textBox3.Text; // testBox3 의 내용을 sendData1 변수에 저장
             Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
            Parsing(Tcp_tx_buf);
@@ -149,25 +172,8 @@ namespace My_Client
             Tcp_tx_data[3] = 1; //Cmd
             Tcp_tx_data[4] = 3; //ETX
             DataWrite(Tcp_tx_data);
-        } 
-
-        private void Cmd2btn_Click(object sender, EventArgs e) //Cmd 2. IP,Port Setting
-        {
-            cmd = 2;
-
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = 15; //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 2; //Cmd
-            Tcp_tx_data[4] = (byte)Convert.ToInt16(IP1TB.Text); //IP1
-            Tcp_tx_data[6] = (byte)Convert.ToInt16(IP2TB.Text); //IP2
-            Tcp_tx_data[8] = (byte)Convert.ToInt16(IP3TB.Text); //IP3
-            Tcp_tx_data[10] = (byte)Convert.ToInt16(IP4TB.Text);//IP4
-            Tcp_tx_data[12] = (byte)Convert.ToInt16(PortTB.Text); // Port=(Tcp_tx_buf[13] << 8) + Tcp_tx_buf[12]
-            Tcp_tx_data[13] = (byte)(Convert.ToInt16(PortTB.Text) >> 8);
-            Tcp_tx_data[14] = 3; //ETX
-            DataWrite(Tcp_tx_data);
         }
+
 
         private void Cmd3btn_Click(object sender, EventArgs e) //Cmd 3. Serial Number Request
         {
@@ -214,40 +220,23 @@ namespace My_Client
         private void Cmd100btn_Click(object sender, EventArgs e)//Cmd 100. AT Setting Mode
         {
             cmd = 100;
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = 9; //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 100; //Cmd
-            Tcp_tx_data[4] = 65; //'A'
-            Tcp_tx_data[5] = 84; //'T'
-            Tcp_tx_data[6] = 13; //'\r'
-            Tcp_tx_data[7] = 10; //'\n'
-            Tcp_tx_data[8] = 3; //ETX
+            Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes("AT");
+            cmd100();
             DataWrite(Tcp_tx_data);
 
         }
 
         
-        private void Savebtn_Click(object sender, EventArgs e) //Data Save
-        {
-
-
-            BT_Slave_Data= HName + "," + IP + "," + Port + "," + Mac;
-            StreamWriter FS = new StreamWriter(".mac.txt", true); 
-            FS.WriteLine(BT_Slave_Data); 
-            FS.Close();
-            writeRichTextbox(BT_Slave_Data);
-
-
-
-        }
+        
 
         private void Loadbtn_Click(object sender, EventArgs e)
         {
             string line; int num = 0;
             string[] FullData = new string[254];
+           
+            
             StreamReader FS = new StreamReader(".mac.txt");
-
+            
             while ((line = FS.ReadLine()) != null)
             {
                 FullData[num] = num + "," + line;
@@ -262,6 +251,8 @@ namespace My_Client
                 dataGridView1.Rows.Add(Slave_DataSplit); //DataSheet에 삽입
             }
             Slave_Mac_Length = num;
+            
+
         }
 
         private void Mac_Sendbtn_Click(object sender, EventArgs e)
@@ -300,6 +291,7 @@ namespace My_Client
  * 1-1. 폼간 데이터 전달(Count)
  * 2.세이브창 따로빼서 저장누르면 콜백으로 그리드 뷰에 데이터 바로업데이트 
  * 2-2.세이브창에서 데이터쓸때 제한검사
+ * 2-3 save 누르면 리치박스에 정보 표시
  * 3. 데이터 고유 id부여, 중간수정 가능?
  * 
  * 
