@@ -46,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1_0824.cs">
+    <Compile Include="Joystick_Monitoring_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1_0824.designer.cs">
-      <DependentUpon>Form1_0824.cs</DependentUpon>
+    <Compile Include="Joystick_Monitoring_Form.Designer.cs">
+      <DependentUpon>Joystick_Monitoring_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main_Form.designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,8 +66,17 @@
     <Compile Include="Slave_Set_Form.Designer.cs">
       <DependentUpon>Slave_Set_Form.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1_0824.resx">
-      <DependentUpon>Form1_0824.cs</DependentUpon>
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Joystick_Monitoring_Form.resx">
+      <DependentUpon>Joystick_Monitoring_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -71,6 +86,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Slave_Set_Form.resx">
       <DependentUpon>Slave_Set_Form.cs</DependentUpon>
@@ -87,6 +103,111 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Center.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Donw_Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down_Right.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Right.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up_Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up_Right.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Center.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Down.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Down_Right.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Center1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Down1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Down_Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Down_Right1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Right.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_UP.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Up_Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joy_Up_Right.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down_off.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Down_on.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Left_off.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Left_on.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Right_off.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Right_on.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up_off.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Up_on.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMO_OFF.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMO_ON.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMO_OFF2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMO_ON1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Connection_Off.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Connection_On.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

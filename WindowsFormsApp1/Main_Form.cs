@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;  // 추가1
-using System.Net; // 추가
-using System.Net.Sockets;  // 추가
-using System.IO;  // 추가
+using System.Threading;
+using System.Net;
+using System.Net.Sockets; 
+using System.IO; 
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 
 namespace My_Client
 {
-    public partial class Form1 : Form
+    public partial class Main_Form : Form
     {
         Slave_Set_Form slave_set_form;
-        int cmd, ThreadBit = 1; byte Count = 1;
+        public string[] Slave_ReceivedData = new string[4]; //Slave_Set_Form에서 Split_IP 전달받을 곳
+        public int cmd=1; public int ThreadBit = 0; public byte Count = 0;
         public string IP1, IP2, IP3, IP4, IP, Port, HName, Mac;
         static string BT_Slave_Data = string.Empty;
 
@@ -27,37 +28,68 @@ namespace My_Client
         public byte[] Tcp_tx_buf = new byte[50];
         public string sendData1;
 
-        byte[] Tcp_rx_data = new byte[50];
-        byte[] Tcp_rx_buf = new byte[50];
+        public byte[] Tcp_rx_data = new byte[50];
+        public  byte[] Tcp_rx_buf = new byte[50];
 
         string[] Slave_DataSplit = new string[50];
         string[] Slave_Mac = new string[254];
         int Slave_Mac_Length;
-
+        
         NetworkStream stream;
-        public Form1()
+        public Main_Form()
         {
             InitializeComponent();
         }
-        public Form1(Slave_Set_Form a)
+        public Main_Form(Slave_Set_Form a)
         {
             InitializeComponent();
             slave_set_form = a;
         }
 
-
-        public void cmd100()
+        public void Cmd_Data_Insert() //Cmd에 따른 데이터 프로토콜
         {
-            cmd = 100;
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 100; //Cmd
-            for (int i = 0; i < Tcp_tx_buf.Length; i++)
-                Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
-            Tcp_tx_data[Tcp_tx_buf.Length + 4] = 13; //\r
-            Tcp_tx_data[Tcp_tx_buf.Length + 5] = 10; //\n
-            Tcp_tx_data[(byte)(Tcp_tx_data[1] - 1)] = 3; //ETX
+            switch(cmd)
+            {
+                case 1: //Cmd 1. TCP Connection Check
+                case 3: //Cmd 3. Serial Number Request
+                case 10: //Cmd 10. Get Joystick Value
+                    Tcp_tx_data[0] = 2; //STX
+                    Tcp_tx_data[1] = 5; //Data Length
+                    Tcp_tx_data[2] = Count; //Count
+                    Tcp_tx_data[3] = (byte)cmd;  //Cmd
+                    Tcp_tx_data[4] = 3; //ETX
+                    break;
+
+                case 2: //IP,Port Set
+                    Tcp_tx_data[0] = 2; //STX
+                    Tcp_tx_data[1] = 15; //Data Length
+                    Tcp_tx_data[2] = Count; //Count
+                    Tcp_tx_data[3] = (byte)cmd; //Cmd
+                    Tcp_tx_data[4] = (byte)Convert.ToInt16(Slave_ReceivedData[0]); //IP1
+                    Tcp_tx_data[5] = 0;
+                    Tcp_tx_data[6] = (byte)Convert.ToInt16(Slave_ReceivedData[1]); //IP2
+                    Tcp_tx_data[7] = 0;
+                    Tcp_tx_data[8] = (byte)Convert.ToInt16(Slave_ReceivedData[2]); //IP3
+                    Tcp_tx_data[9] = 0;
+                    Tcp_tx_data[10] = (byte)Convert.ToInt16(Slave_ReceivedData[3]);//IP4
+                    Tcp_tx_data[11] = 0;
+                    Tcp_tx_data[12] = (byte)Convert.ToInt16(Port); // Port = (Tcp_tx_buf[13] << 8) + Tcp_tx_buf[12]
+                    Tcp_tx_data[13] = (byte)(Convert.ToInt16(Port) >> 8);
+                    Tcp_tx_data[14] = 3; //ETX
+                    break;
+
+                case 100: //Cmd 100. AT Setting Mode
+                    Tcp_tx_data[0] = 2; //STX
+                    Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
+                    Tcp_tx_data[2] = Count; //Count
+                    Tcp_tx_data[3] = (byte)cmd; //Cmd
+                    for (int i = 0; i < Tcp_tx_buf.Length; i++)
+                        Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
+                    Tcp_tx_data[Tcp_tx_data[1] - 3] = 13; //\r
+                    Tcp_tx_data[Tcp_tx_data[1] - 2] = 10; //\n
+                    Tcp_tx_data[Tcp_tx_data[1] - 1] = 3; //ETX
+                    break;
+            }
         }
 
         private void Slave_Add_btn_Click(object sender, EventArgs e) // Slave Setting Form 열기
@@ -65,7 +97,7 @@ namespace My_Client
             cmd = 100;
             sendData1 = "AT+ADDR?";  //폼 열때 Mac Address를 Mac 변수에 저장
             Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
-            cmd100();
+            Cmd_Data_Insert();
             DataWrite(Tcp_tx_data);
             Slave_Set_Form slave_Set_Form = new Slave_Set_Form(this);
             slave_Set_Form.ShowDialog();
@@ -96,10 +128,9 @@ namespace My_Client
         private void connect()  // thread1에 연결된 함수. 메인폼과는 별도로 동작한다.
         {
             TcpClient tcpClient1 = new TcpClient();  // TcpClient 객체 생성
-            IPEndPoint ipEnd = new IPEndPoint(IPAddress.Parse(textBox1.Text), int.Parse(textBox2.Text));  // IP주소와 Port번호를 할당
+            IPEndPoint ipEnd = new IPEndPoint(IPAddress.Parse(ConectIPTB.Text), int.Parse(ConectPortTB.Text));  // IP주소와 Port번호를 할당
             tcpClient1.Connect(ipEnd);  // 서버에 연결 요청
             writeRichTextbox("서버 연결됨...");
-
 
             stream = tcpClient1.GetStream();
  
@@ -107,12 +138,9 @@ namespace My_Client
             {
                 stream.Read(Tcp_rx_buf, 0, Tcp_rx_buf.Length); //Data Receive
                 int rx_Length=0;
-                if (cmd ==2)
-                    rx_Length = 16;
-                else
-                    rx_Length = ASCIIEncoding.ASCII.GetString(Tcp_rx_buf).IndexOf("\0"); // Receive Data Length
+                rx_Length = ASCIIEncoding.ASCII.GetString(Tcp_rx_buf).IndexOf("\0"); // Receive Data Length
 
-                for (int i = 0; i < rx_Length - 6; i++)
+                for (int i = 0; i < rx_Length - 6; i++) // 불필요한 데이터 없애기
                     Tcp_rx_data[i] = Tcp_rx_buf[i + 4];
                 
                 writeRichTextbox(ASCIIEncoding.ASCII.GetString(Tcp_rx_data)); //RichTextBox에 Receive Data 표시
@@ -124,8 +152,6 @@ namespace My_Client
                     if (sendData1 == "AT+NAME?")
                         HName = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, rx_Length - 17);
                 }
-               
-                
             }
         }
 
@@ -137,101 +163,58 @@ namespace My_Client
 
         public void DataWrite(byte[] a) // Data Send
         {
+            Tcp_tx_data[2] = ++Count;
             stream.Write(a, 0, a.Length);
-            Tcp_tx_data[2] = Count++;
+            
         }
 
         private void Sendbtn_Click(object sender, EventArgs e)  // '보내기' 버튼이 클릭되면
         {
-            sendData1 = textBox3.Text; // testBox3 의 내용을 sendData1 변수에 저장
+            sendData1 = ATTB.Text; // testBox3 의 내용을 sendData1 변수에 저장
             Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(sendData1);
            Parsing(Tcp_tx_buf);
 
             if (cmd == 100)
             {
-                Tcp_tx_data[0] = 2; //STX
-                Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
-                Tcp_tx_data[2] = Count; //Count
-                Tcp_tx_data[3] = 100; //Cmd
-                for (int i = 0; i < Tcp_tx_buf.Length; i++)
-                    Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
-                Tcp_tx_data[Tcp_tx_buf.Length + 4] = 13; //\r
-                Tcp_tx_data[Tcp_tx_buf.Length + 5] = 10; //\n
-                Tcp_tx_data[Tcp_tx_buf.Length + 6] = 3; //ETX
+                Cmd_Data_Insert();
                 DataWrite(Tcp_tx_data);
             }
         }
 
-        private void Cmd1btn_Click(object sender, EventArgs e) //Cmd 1. TCP Open?  
+        private void Cmd1btn_Click(object sender, EventArgs e) //Cmd 1. TCP Connection Check  
         {
             cmd = 1;
-
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = 5; //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 1; //Cmd
-            Tcp_tx_data[4] = 3; //ETX
+            Cmd_Data_Insert();
             DataWrite(Tcp_tx_data);
         }
-
 
         private void Cmd3btn_Click(object sender, EventArgs e) //Cmd 3. Serial Number Request
         {
             cmd = 3;
-
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = 5; //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 3; //Cmd
-            Tcp_tx_data[4] = 3; //ETX
+            Cmd_Data_Insert();
             DataWrite(Tcp_tx_data);
         }
 
         private void cmd10Startbtn_Click(object sender, EventArgs e) //Cmd 10. Get Joystick Value Start
         {
-            cmd = 10;
-            ThreadBit = 1;
-            Tcp_tx_data[0] = 2; //STX
-            Tcp_tx_data[1] = 5; //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 10; //Cmd
-            Tcp_tx_data[4] = 3; //ETX
-            DataWrite(Tcp_tx_data);
-
-            ThreadPool.QueueUserWorkItem((_) => {
-                while (ThreadBit == 1)
-                {
-                    while (Tcp_rx_buf[2] == Count - 1) //응답받고 보냄
-                    {
-                        DataWrite(Tcp_tx_data);
-                        Thread.Sleep(1000);
-                    }
-
-                }
-            });
-        }
-
-        private void cmd10Stopbtn_Click(object sender, EventArgs e) //Cmd 10. Get Joystick Value Stop
-        {
-            ThreadBit = 0;
-            cmd = 1;
+            Joystick_Monitoring_Form joystick_Monitoring_Form = new Joystick_Monitoring_Form(this);
+            joystick_Monitoring_Form.Show();
         }
 
         private void Cmd100btn_Click(object sender, EventArgs e)//Cmd 100. AT Setting Mode
         {
             cmd = 100;
-            Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes("AT");
-            cmd100();
+            Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes("AT"); //연결확인
+            Cmd_Data_Insert();
             DataWrite(Tcp_tx_data);
-
+            ATTB.Visible = true;
+            Sendbtn.Visible = true;
         }
 
-        
-        
-
-        private void Loadbtn_Click(object sender, EventArgs e)
+        private void Loadbtn_Click(object sender, EventArgs e)// 저장된 Slave Mac data Load
         {
-            string line; int num = 0;
+            string line;
+            int num = 0; //Slave 개수
             string[] FullData = new string[254];
            
             
@@ -240,7 +223,7 @@ namespace My_Client
             while ((line = FS.ReadLine()) != null)
             {
                 FullData[num] = num + "," + line;
-                num++;
+                num++; 
             }
             FS.Close();
 
@@ -251,18 +234,16 @@ namespace My_Client
                 dataGridView1.Rows.Add(Slave_DataSplit); //DataSheet에 삽입
             }
             Slave_Mac_Length = num;
-            
-
         }
 
-        private void Mac_Sendbtn_Click(object sender, EventArgs e)
+        private void Mac_Sendbtn_Click(object sender, EventArgs e) //Master로 Slave Mac 보내기
         {
-            
             cmd = 100;
-            Tcp_tx_data[0] = 2; //STX
+            Cmd_Data_Insert();
+            //Tcp_tx_data[0] = 2; //STX
             Tcp_tx_data[1] = (byte)Convert.ToInt16((Slave_Mac_Length * 12) + 5); //Data Length
-            Tcp_tx_data[2] = Count; //Count
-            Tcp_tx_data[3] = 100; //Cmd
+            //Tcp_tx_data[2] = Count; //Count
+            //Tcp_tx_data[3] = 100; //Cmd
 
             for (int i = 0; i < Slave_Mac_Length; i++)
             {
@@ -275,30 +256,6 @@ namespace My_Client
             }
             Tcp_tx_data[(byte)(Tcp_tx_data[1] - 1)] = 3; //ETX
             DataWrite(Tcp_tx_data);
-
-
-
         }
-
-
     }
-  
-
 }
-/*
- *                    ※개발※
- * 1.Mac 프로토콜
- * 1-1. 폼간 데이터 전달(Count)
- * 2.세이브창 따로빼서 저장누르면 콜백으로 그리드 뷰에 데이터 바로업데이트 
- * 2-2.세이브창에서 데이터쓸때 제한검사
- * 2-3 save 누르면 리치박스에 정보 표시
- * 3. 데이터 고유 id부여, 중간수정 가능?
- * 
- * 
- * 
- *                  ※수정사항※
- * 1.cmd 10 Thread 무조건 보내지말고 응답 받고 보내기 콜백으로 
- * 2.Tcp_tx_data 보내고 초기화(안해도됨)
- * 
- * 
- */ 

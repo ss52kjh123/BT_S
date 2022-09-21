@@ -1,8 +1,11 @@
 ﻿
+using System.Windows.Forms;
+
 namespace My_Client
 {
-    partial class Form1
+    partial class Main_Form
     {
+    
         /// <summary>
         /// 필수 디자이너 변수입니다.
         /// </summary>
@@ -31,9 +34,9 @@ namespace My_Client
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ConectIPTB = new System.Windows.Forms.TextBox();
+            this.ConectPortTB = new System.Windows.Forms.TextBox();
+            this.ATTB = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Sendbtn = new System.Windows.Forms.Button();
@@ -43,7 +46,6 @@ namespace My_Client
             this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.cmd10Startbtn = new System.Windows.Forms.Button();
-            this.cmd10Stopbtn = new System.Windows.Forms.Button();
             this.Cmd1btn = new System.Windows.Forms.Button();
             this.Cmd3btn = new System.Windows.Forms.Button();
             this.Cmd100btn = new System.Windows.Forms.Button();
@@ -58,6 +60,7 @@ namespace My_Client
             this.Loadbtn = new System.Windows.Forms.Button();
             this.Slave_Add_btn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,29 +82,30 @@ namespace My_Client
             this.label2.TabIndex = 1;
             this.label2.Text = "Port";
             // 
-            // textBox1
+            // ConectIPTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(14, 36);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(181, 25);
-            this.textBox1.TabIndex = 2;
+            this.ConectIPTB.Location = new System.Drawing.Point(14, 36);
+            this.ConectIPTB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ConectIPTB.Name = "ConectIPTB";
+            this.ConectIPTB.Size = new System.Drawing.Size(181, 25);
+            this.ConectIPTB.TabIndex = 2;
             // 
-            // textBox2
+            // ConectPortTB
             // 
-            this.textBox2.Location = new System.Drawing.Point(202, 36);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(89, 25);
-            this.textBox2.TabIndex = 3;
+            this.ConectPortTB.Location = new System.Drawing.Point(202, 36);
+            this.ConectPortTB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ConectPortTB.Name = "ConectPortTB";
+            this.ConectPortTB.Size = new System.Drawing.Size(89, 25);
+            this.ConectPortTB.TabIndex = 3;
             // 
-            // textBox3
+            // ATTB
             // 
-            this.textBox3.Location = new System.Drawing.Point(14, 276);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(277, 25);
-            this.textBox3.TabIndex = 4;
+            this.ATTB.Location = new System.Drawing.Point(14, 276);
+            this.ATTB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ATTB.Name = "ATTB";
+            this.ATTB.Size = new System.Drawing.Size(277, 25);
+            this.ATTB.TabIndex = 4;
+            this.ATTB.Visible = false;
             // 
             // richTextBox1
             // 
@@ -132,6 +136,7 @@ namespace My_Client
             this.Sendbtn.TabIndex = 8;
             this.Sendbtn.Text = "Send";
             this.Sendbtn.UseVisualStyleBackColor = true;
+            this.Sendbtn.Visible = false;
             this.Sendbtn.Click += new System.EventHandler(this.Sendbtn_Click);
             // 
             // label5
@@ -189,16 +194,6 @@ namespace My_Client
             this.cmd10Startbtn.UseVisualStyleBackColor = true;
             this.cmd10Startbtn.Click += new System.EventHandler(this.cmd10Startbtn_Click);
             // 
-            // cmd10Stopbtn
-            // 
-            this.cmd10Stopbtn.Location = new System.Drawing.Point(599, 184);
-            this.cmd10Stopbtn.Name = "cmd10Stopbtn";
-            this.cmd10Stopbtn.Size = new System.Drawing.Size(105, 42);
-            this.cmd10Stopbtn.TabIndex = 17;
-            this.cmd10Stopbtn.Text = "Stop";
-            this.cmd10Stopbtn.UseVisualStyleBackColor = true;
-            this.cmd10Stopbtn.Click += new System.EventHandler(this.cmd10Stopbtn_Click);
-            // 
             // Cmd1btn
             // 
             this.Cmd1btn.Location = new System.Drawing.Point(488, 88);
@@ -232,7 +227,7 @@ namespace My_Client
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(611, 488);
+            this.label14.Location = new System.Drawing.Point(535, 442);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(132, 15);
             this.label14.TabIndex = 11;
@@ -241,7 +236,7 @@ namespace My_Client
             // Mac_Sendbtn
             // 
             this.Mac_Sendbtn.Font = new System.Drawing.Font("굴림", 8F);
-            this.Mac_Sendbtn.Location = new System.Drawing.Point(500, 475);
+            this.Mac_Sendbtn.Location = new System.Drawing.Point(424, 429);
             this.Mac_Sendbtn.Name = "Mac_Sendbtn";
             this.Mac_Sendbtn.Size = new System.Drawing.Size(105, 42);
             this.Mac_Sendbtn.TabIndex = 22;
@@ -258,11 +253,11 @@ namespace My_Client
             this.DataIP,
             this.DataPort,
             this.DataMac});
-            this.dataGridView1.Location = new System.Drawing.Point(14, 367);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 365);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(480, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(406, 150);
             this.dataGridView1.TabIndex = 23;
             // 
             // DataNo
@@ -307,9 +302,9 @@ namespace My_Client
             // 
             // Loadbtn
             // 
-            this.Loadbtn.Location = new System.Drawing.Point(500, 427);
+            this.Loadbtn.Location = new System.Drawing.Point(424, 385);
             this.Loadbtn.Name = "Loadbtn";
-            this.Loadbtn.Size = new System.Drawing.Size(105, 42);
+            this.Loadbtn.Size = new System.Drawing.Size(105, 38);
             this.Loadbtn.TabIndex = 24;
             this.Loadbtn.Text = "Load";
             this.Loadbtn.UseVisualStyleBackColor = true;
@@ -317,9 +312,9 @@ namespace My_Client
             // 
             // Slave_Add_btn
             // 
-            this.Slave_Add_btn.Location = new System.Drawing.Point(691, 11);
+            this.Slave_Add_btn.Location = new System.Drawing.Point(424, 477);
             this.Slave_Add_btn.Name = "Slave_Add_btn";
-            this.Slave_Add_btn.Size = new System.Drawing.Size(134, 58);
+            this.Slave_Add_btn.Size = new System.Drawing.Size(105, 38);
             this.Slave_Add_btn.TabIndex = 25;
             this.Slave_Add_btn.Text = "Add";
             this.Slave_Add_btn.UseVisualStyleBackColor = true;
@@ -328,26 +323,34 @@ namespace My_Client
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(582, 33);
+            this.label3.Location = new System.Drawing.Point(535, 489);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 15);
             this.label3.TabIndex = 11;
             this.label3.Text = "Slave Info Add";
             // 
-            // Form1
+            // label4
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 597);
-            this.Controls.Add(this.Slave_Add_btn);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(535, 397);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(141, 15);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Loading Saved Data";
+            // 
+            // Main_Form
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(685, 527);
             this.Controls.Add(this.Loadbtn);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.Mac_Sendbtn);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.Slave_Add_btn);
             this.Controls.Add(this.Cmd100btn);
             this.Controls.Add(this.Cmd3btn);
             this.Controls.Add(this.Cmd1btn);
-            this.Controls.Add(this.cmd10Stopbtn);
             this.Controls.Add(this.cmd10Startbtn);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label13);
@@ -358,13 +361,13 @@ namespace My_Client
             this.Controls.Add(this.Sendbtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ATTB);
+            this.Controls.Add(this.ConectPortTB);
+            this.Controls.Add(this.ConectIPTB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form1";
+            this.Name = "Main_Form";
             this.Text = "클라이언트 Form";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -376,9 +379,9 @@ namespace My_Client
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox ConectIPTB;
+        private System.Windows.Forms.TextBox ConectPortTB;
+        private System.Windows.Forms.TextBox ATTB;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Sendbtn;
@@ -388,7 +391,6 @@ namespace My_Client
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button cmd10Startbtn;
-        private System.Windows.Forms.Button cmd10Stopbtn;
         private System.Windows.Forms.Button Cmd1btn;
         private System.Windows.Forms.Button Cmd3btn;
         private System.Windows.Forms.Button Cmd100btn;
@@ -403,6 +405,7 @@ namespace My_Client
         private System.Windows.Forms.Button Loadbtn;
         private System.Windows.Forms.Button Slave_Add_btn;
         private System.Windows.Forms.Label label3;
+        private Label label4;
     }
 }
 
