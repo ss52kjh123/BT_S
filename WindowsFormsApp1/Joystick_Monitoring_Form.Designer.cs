@@ -36,12 +36,12 @@
             this.Down_off = new System.Windows.Forms.PictureBox();
             this.EMO_on = new System.Windows.Forms.PictureBox();
             this.EMO_off = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.PairingBit_on = new System.Windows.Forms.PictureBox();
             this.Right_off = new System.Windows.Forms.PictureBox();
             this.Up_on = new System.Windows.Forms.PictureBox();
             this.Right_on = new System.Windows.Forms.PictureBox();
             this.Up_off = new System.Windows.Forms.PictureBox();
-            this.PairingBit = new System.Windows.Forms.PictureBox();
+            this.PairingBit_off = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Stopbtn2 = new System.Windows.Forms.Button();
             this.StartBtn2 = new System.Windows.Forms.Button();
@@ -51,12 +51,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Down_off)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EMO_on)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EMO_off)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PairingBit_on)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Right_off)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Up_on)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Right_on)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Up_off)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PairingBit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PairingBit_off)).BeginInit();
             this.SuspendLayout();
             // 
             // Stopbtn
@@ -140,16 +140,16 @@
             this.EMO_off.TabIndex = 3;
             this.EMO_off.TabStop = false;
             // 
-            // pictureBox3
+            // PairingBit_on
             // 
-            this.pictureBox3.Image = global::WindowsFormsApp1.Properties.Resources.Connection_On;
-            this.pictureBox3.Location = new System.Drawing.Point(415, 42);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(24, 23);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Visible = false;
+            this.PairingBit_on.Image = global::WindowsFormsApp1.Properties.Resources.Connection_On;
+            this.PairingBit_on.Location = new System.Drawing.Point(415, 42);
+            this.PairingBit_on.Name = "PairingBit_on";
+            this.PairingBit_on.Size = new System.Drawing.Size(24, 23);
+            this.PairingBit_on.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PairingBit_on.TabIndex = 3;
+            this.PairingBit_on.TabStop = false;
+            this.PairingBit_on.Visible = false;
             // 
             // Right_off
             // 
@@ -193,15 +193,15 @@
             this.Up_off.TabIndex = 3;
             this.Up_off.TabStop = false;
             // 
-            // PairingBit
+            // PairingBit_off
             // 
-            this.PairingBit.Image = global::WindowsFormsApp1.Properties.Resources.Connection_Off;
-            this.PairingBit.Location = new System.Drawing.Point(414, 42);
-            this.PairingBit.Name = "PairingBit";
-            this.PairingBit.Size = new System.Drawing.Size(24, 22);
-            this.PairingBit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PairingBit.TabIndex = 3;
-            this.PairingBit.TabStop = false;
+            this.PairingBit_off.Image = global::WindowsFormsApp1.Properties.Resources.Connection_Off;
+            this.PairingBit_off.Location = new System.Drawing.Point(415, 43);
+            this.PairingBit_off.Name = "PairingBit_off";
+            this.PairingBit_off.Size = new System.Drawing.Size(24, 22);
+            this.PairingBit_off.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PairingBit_off.TabIndex = 3;
+            this.PairingBit_off.TabStop = false;
             // 
             // label1
             // 
@@ -246,8 +246,8 @@
             this.Controls.Add(this.Down_off);
             this.Controls.Add(this.EMO_on);
             this.Controls.Add(this.EMO_off);
-            this.Controls.Add(this.PairingBit);
-            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.PairingBit_off);
+            this.Controls.Add(this.PairingBit_on);
             this.Controls.Add(this.Right_off);
             this.Controls.Add(this.Up_on);
             this.Controls.Add(this.Right_on);
@@ -262,12 +262,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.Down_off)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EMO_on)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EMO_off)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PairingBit_on)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Right_off)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Up_on)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Right_on)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Up_off)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PairingBit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PairingBit_off)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,8 +286,8 @@
         private System.Windows.Forms.PictureBox Left_on;
         private System.Windows.Forms.PictureBox EMO_off;
         private System.Windows.Forms.PictureBox EMO_on;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox PairingBit;
+        private System.Windows.Forms.PictureBox PairingBit_on;
+        private System.Windows.Forms.PictureBox PairingBit_off;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Stopbtn2;
         private System.Windows.Forms.Button StartBtn2;

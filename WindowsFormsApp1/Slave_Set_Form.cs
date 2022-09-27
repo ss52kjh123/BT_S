@@ -33,11 +33,11 @@ namespace My_Client
             IP = IPTB.Text;
             Split_IP = IP.Split('.'); //IP분리
             Port = PortTB.Text;
-            Name = NameTB.Text;
+            //Name = NameTB.Text;
            
 
-            frm1.sendData1 = "AT+NAME="+Name;
-            frm1.Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(frm1.sendData1);
+            //frm1.sendData1 = "AT+NAME="+Name;
+            //frm1.Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes(frm1.sendData1);
             frm1.cmd = 100;
             frm1.Cmd_Data_Insert();
             frm1.DataWrite(frm1.Tcp_tx_data);

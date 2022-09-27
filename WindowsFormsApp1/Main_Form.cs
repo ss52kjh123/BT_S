@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets; 
-using System.IO; 
+using System.IO;
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 
@@ -24,12 +25,15 @@ namespace My_Client
         public string IP1, IP2, IP3, IP4, IP, Port, HName, Mac;
         static string BT_Slave_Data = string.Empty;
 
-        public byte[] Tcp_tx_data = new byte[50];
-        public byte[] Tcp_tx_buf = new byte[50];
+        public byte[] Tcp_tx_data = new byte[100];
+        public byte[] Tcp_tx_buf = new byte[100];
         public string sendData1;
 
-        public byte[] Tcp_rx_data = new byte[50];
-        public  byte[] Tcp_rx_buf = new byte[50];
+        public byte[] Tcp_rx_data = new byte[100];
+        public  byte[] Tcp_rx_buf = new byte[100];
+        
+        
+       
 
         string[] Slave_DataSplit = new string[50];
         string[] Slave_Mac = new string[254];
@@ -48,6 +52,7 @@ namespace My_Client
 
         public void Cmd_Data_Insert() //Cmd에 따른 데이터 프로토콜
         {
+
             switch(cmd)
             {
                 case 1: //Cmd 1. TCP Connection Check
@@ -80,13 +85,12 @@ namespace My_Client
 
                 case 100: //Cmd 100. AT Setting Mode
                     Tcp_tx_data[0] = 2; //STX
-                    Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 7); //Data Length
+                    Tcp_tx_data[1] = (byte)(Tcp_tx_buf.Length + 6); //Data Length
                     Tcp_tx_data[2] = Count; //Count
                     Tcp_tx_data[3] = (byte)cmd; //Cmd
                     for (int i = 0; i < Tcp_tx_buf.Length; i++)
                         Tcp_tx_data[i + 4] = Tcp_tx_buf[i];
-                    Tcp_tx_data[Tcp_tx_data[1] - 3] = 13; //\r
-                    Tcp_tx_data[Tcp_tx_data[1] - 2] = 10; //\n
+                    Tcp_tx_data[Tcp_tx_data[1] - 2] = 13; //\r
                     Tcp_tx_data[Tcp_tx_data[1] - 1] = 3; //ETX
                     break;
             }
@@ -144,13 +148,15 @@ namespace My_Client
                     Tcp_rx_data[i] = Tcp_rx_buf[i + 4];
                 
                 writeRichTextbox(ASCIIEncoding.ASCII.GetString(Tcp_rx_data)); //RichTextBox에 Receive Data 표시
-                if(cmd==100)
+                Tcp_rx_buf = Enumerable.Repeat<byte>(0, Tcp_rx_buf.Length).ToArray<byte>();
+                Tcp_rx_data = Enumerable.Repeat<byte>(0, Tcp_rx_data.Length).ToArray<byte>();
+                if (cmd==100)
                 {
-                    if (sendData1 == "AT+ADDR?")
-                        Mac = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, 14);
+                    //if (sendData1 == "AT+ADDR?")
+                    //    Mac = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, 14);
 
-                    if (sendData1 == "AT+NAME?")
-                        HName = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, rx_Length - 17);
+                    //if (sendData1 == "AT+NAME?")
+                    //    HName = ASCIIEncoding.ASCII.GetString(Tcp_rx_data, 6, rx_Length - 17);
                 }
             }
         }
@@ -204,7 +210,7 @@ namespace My_Client
         private void Cmd100btn_Click(object sender, EventArgs e)//Cmd 100. AT Setting Mode
         {
             cmd = 100;
-            Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes("AT"); //연결확인
+            Tcp_tx_buf = ASCIIEncoding.ASCII.GetBytes("AT"); //연결확인 //메세지박스추가?
             Cmd_Data_Insert();
             DataWrite(Tcp_tx_data);
             ATTB.Visible = true;

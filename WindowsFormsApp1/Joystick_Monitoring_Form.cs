@@ -51,7 +51,7 @@ namespace My_Client
                 
                 if (MForm.Tcp_rx_buf[4]==1) //Pairing on
                 {
-                    visible(PairingBit);
+                    visible(PairingBit_off);
                     if (MForm.Tcp_rx_buf[5] == 0) //Up off
                         Invisible(Up_on);
                     if (MForm.Tcp_rx_buf[6] == 0) //Down off
