@@ -1,0 +1,10 @@
+../Core/Src/TcpServer.c:66:6:tcp_echoserver_init	24	static
+../Core/Src/TcpServer.c:101:14:tcp_echoserver_accept	32	static
+../Core/Src/TcpServer.c:154:14:tcp_echoserver_recv	80	static
+../Core/Src/TcpServer.c:598:13:tcp_echoserver_error	24	static
+../Core/Src/TcpServer.c:618:14:tcp_echoserver_poll	24	static
+../Core/Src/TcpServer.c:658:14:tcp_echoserver_sent	32	static
+../Core/Src/TcpServer.c:689:13:tcp_echoserver_send	32	static
+../Core/Src/TcpServer.c:749:13:tcp_echoserver_connection_close	16	static
+../Core/Src/TcpServer.c:769:5:TcpCounterCallBack	16	static
+../Core/Src/TcpServer.c:772:12:Set_TcpVariable_BOOL	24	static

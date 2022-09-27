@@ -1,0 +1,4 @@
+../Core/Src/FlashMemory.c:19:6:FlashMemoryWrite	56	static
+../Core/Src/FlashMemory.c:39:6:FlashMemoryRead	16	static
+../Core/Src/FlashMemory.c:53:6:For_FlashMemory_Int_To_Byte	32	static
+../Core/Src/FlashMemory.c:78:13:MY_FLASH_EraseSector	8	static

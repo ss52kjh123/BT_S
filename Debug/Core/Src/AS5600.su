@@ -1,0 +1,8 @@
+../Core/Src/AS5600.c:12:6:AS5600_WriteReg	32	static
+../Core/Src/AS5600.c:18:9:AS5600_ReadReg	40	static
+../Core/Src/AS5600.c:27:10:AS5600_GetAngle	16	static
+../Core/Src/AS5600.c:33:10:AS5600_GetRawAngle	24	static
+../Core/Src/AS5600.c:45:9:AS5600_GetStatus	8	static
+../Core/Src/AS5600.c:50:6:AS5600_SetHystheresis	24	static
+../Core/Src/AS5600.c:57:6:AS5600_SetOutputStage	24	static
+../Core/Src/AS5600.c:64:6:AS5600_SetPWMFreq	24	static
